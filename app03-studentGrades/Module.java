@@ -26,5 +26,11 @@ public class Module
         this.title = title;
         this.codeNo = codeNo;
     }
+    
+    public boolean isComplete()
+    {
+        return mark >= 40;
+    }
 
+    
 }
