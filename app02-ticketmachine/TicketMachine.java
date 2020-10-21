@@ -125,4 +125,37 @@ public class TicketMachine
         System.out.println("##################");
         System.out.println();
     }
+    
+    /**
+     * This method will add £1 on to the current balance
+     */
+    public void insert£1()
+    {
+        balance += 100;
+        printBalance(100);
+    }
+    
+    /**
+     * This method will add £2 on to the current balance
+     */
+    public void insert£2()
+    {
+        balance = balance + 200;
+        printBalance(200);
+    } 
+    
+    public void printBalance(int amount)
+    {
+        System.out.println(amount);
+        System.out.println(balance);
+    }
+    
+    public void insertCoin(Coin coin)
+    {
+        if(coin == Coin.Pence10)
+        {
+            balance += 10;
+            printBalance(10);
+        }
+    }
 }
