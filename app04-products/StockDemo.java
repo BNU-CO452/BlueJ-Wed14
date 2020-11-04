@@ -1,3 +1,11 @@
+
+
+
+
+
+
+import java.util.Random;
+
 /**
  * Demonstrate the StockManager and Product classes.
  * The demonstration becomes properly functional as
@@ -11,87 +19,73 @@ public class StockDemo
     // The stock manager.
     private StockManager manager;
 
+    private Random generator;
+    
+    private String name = "Samsung Galaxy S20";
+    
     /**
      * Create a StockManager and populate it with a few
      * sample products.
      */
-    public StockDemo()
+    public StockDemo(StockManager manager)
     {
-        manager = new StockManager();
-        manager.addProduct(new Product(132, "Clock Radio"));
-        manager.addProduct(new Product(37,  "Mobile Phone"));
-        manager.addProduct(new Product(23,  "Microwave Oven"));
-    }
-    
-    /**
-     * Provide a very simple demonstration of how a StockManager
-     * might be used. Details of one product are shown, the
-     * product is restocked, and then the details are shown again.
-     */
-    public void demo()
-    {
-        // Show details of all of the products.
-        manager.printProductDetails();
-        // Take delivery of 5 items of one of the products.
-        manager.delivery(132, 5);
-        manager.printProductDetails();
-    }
-    
-    /**
-     * Show details of the given product. If found,
-     * its name and stock quantity will be shown.
-     * @param id The ID of the product to look for.
-     */
-    public void showDetails(int id)
-    {
-        Product product = getProduct(id);
+        generator = new Random();
+        this.manager = manager;
         
-        if(product != null) 
-        {
-            System.out.println(product.toString());
-        }
+        manager.addProduct(new Product(101, "Samsung Galaxy S20"));
+        manager.addProduct(new Product(102, "Apple iPhone 12"));
+        manager.addProduct(new Product(103, "Google Pixel 4A"));
+        manager.addProduct(new Product(104, "Samsung Galaxy S20"));
+        manager.addProduct(new Product(105, "Apple iPhone 12"));
+        manager.addProduct(new Product(106, "Google Pixel 4A"));
+        manager.addProduct(new Product(107, "Samsung Galaxy S20"));
+        manager.addProduct(new Product(108, "Apple iPhone 12"));
+        manager.addProduct(new Product(109, "Google Pixel 4A"));        
+        manager.addProduct(new Product(110, "Google Pixel 4A"));        
     }
     
     /**
-     * Sell one of the given item.
-     * Show the before and after status of the product.
-     * @param id The ID of the product being sold.
+     * Provide a demonstration of how a StockManager
+     * might be used. It will demonstrate delivering 
+     * various quantities of stock for all 10 products
+     * Sell various quantitites of stock for all 10 products
      */
-    public void sellProduct(int id)
+    public void runDemo()
     {
-        Product product = getProduct(id);
+        boolean found = name.startsWith("Samsung");
+        System.out.println(found);
         
-        if(product != null) 
-        {
-            showDetails(id);
-            product.sellOne();
-            showDetails(id);
-        }
+        manager.printAllStock();
+        demoDelivery();
+        demoSell();
     }
     
-    /**
-     * Get the product with the given id from the manager.
-     * An error message is printed if there is no match.
-     * @param id The ID of the product.
-     * @return The Product, or null if no matching one is found.
-     */
-    public Product getProduct(int id)
+    private void demoDelivery()
     {
-        Product product = manager.findProduct(id);
+        int quantity = 0;
         
-        if(product == null) 
+        for(int id = 101; id <= 110; id++)
         {
-            System.out.println("Product with ID: " + id +
-                               " is not recognised.");
+            quantity = generator.nextInt(8);
+            manager.deliverProduct(id, quantity);
         }
-        return product;
+        
+        manager.printAllStock();
     }
-
-    /**
-     * @return The stock manager.
-     */
-    public StockManager getManager()
+    
+    private void demoSell()
     {
-        return manager;
+        int quantity = 0;
+        
+        for(int id = 101; id <= 110; id++)
+        {
+            quantity = generator.nextInt(8);
+            manager.sellProduct(id, quantity);
+        }
+        
+        manager.printAllStock();        
     }
+    
+    
+    
 }

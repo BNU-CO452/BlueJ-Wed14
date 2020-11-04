@@ -78,14 +78,19 @@ public class Product
     }
 
     /**
-     * Sell one of these products.
+     * Sell a quantity of this product.
      * An error is reported if there appears to be no stock.
      */
-    public void sellOne()
+    public void sell(int amount)
     {
         if(quantity > 0) 
         {
-            quantity--;
+            if(amount > quantity)
+            {
+                amount = quantity;
+                System.out.println("You do not have that many is stock!");
+            }
+            this.quantity = this.quantity - amount;
         }
         else 
         {

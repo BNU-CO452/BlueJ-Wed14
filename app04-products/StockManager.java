@@ -35,8 +35,28 @@ public class StockManager
      * @param id The ID of the product.
      * @param amount The amount to increase the quantity by.
      */
-    public void delivery(int id, int amount)
+    public void deliverProduct(int id, int amount)
     {
+        Product product = findProduct(id);
+        
+        System.out.println("Delivering Product " + id);
+        product.increaseQuantity(amount);
+        printDetails(id);
+    }
+    
+   /**
+     * Sell one of the given item.
+     * Show the before and after status of the product.
+     * @param id The ID of the product being sold.
+     */
+    public void sellProduct(int id, int quantity)
+    {
+        Product product = findProduct(id);
+        
+        if(product != null) 
+        {
+            product.sell(quantity);
+        }
     }
     
     /**
@@ -46,6 +66,13 @@ public class StockManager
      */
     public Product findProduct(int id)
     {
+        for(Product product : stock)
+        {
+            if(product.getID() == id)
+            {
+                return product;
+            }
+        }
         return null;
     }
     
@@ -62,9 +89,39 @@ public class StockManager
     }
 
     /**
+     * Print details of the given product. If found,
+     * its name and stock quantity will be shown.
+     * @param id The ID of the product to look for.
+     */
+    public void printDetails(int id)
+    {
+        Product product = findProduct(id);
+        
+        if(product != null) 
+        {
+            System.out.println(product.toString());
+        }
+    }
+    
+    /**
      * Print details of all the products.
      */
-    public void printProductDetails()
+    public void printAllStock()
     {
+        printHeading();
+        
+        for(Product product : stock)
+        {
+            System.out.println(product);
+        }
     }
+    
+    public void printHeading()
+    {
+        System.out.println("=====================");
+        System.out.println("Peacock's Stock List");
+        System.out.println("=====================");
+        System.out.println();
+    }
+    
 }
